@@ -1,6 +1,3 @@
-from re import S
-
-
 skobki = {}
 line = ''.join([i for i in input() if i not in '1234567890-+/*'])
 verdict = ''
