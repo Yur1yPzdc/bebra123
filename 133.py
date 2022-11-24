@@ -27,6 +27,30 @@ class Q:
 
     def f117(self):
         return self.__or__(self.__and__(self.a, self.__not__(self.c)), self.__and__(self.__not__(self.b), self.__not__(self.c)))
+    
+    def f118(self):
+        return self.f117()
+
+    def f119(self):
+        return self.__or__(self.__and__(self.a, self.__not__(self.c)), self.__and__(self.__and__(self.__not__(self.a), self.b), self.c))
+
+    def f120(self):
+        return self.f119()
+
+    def f121(self):
+        return self.__or__(self.__or__(self.__and__(self.__and__(self.__not__(self.a), self.b), self.c),
+                                       self.__and__(self.__and__(self.__not__(self.a), self.b), self.__not__(self.c))),
+                           self.__and__(self.__and__(self.__not__(self.a), self.__not__(self.b)), self.__not__(self.c)))
+
+    def f122(self):
+        return self.__or__(self.__or__(self.__and__(self.__and__(self.__not__(self.a), self.b), self.c),
+                                       self.__and__(self.__and__(self.__not__(self.a), self.__not__(self.b)), self.c)),
+                           self.__and__(self.__and__(self.__not__(self.a), self.__not__(self.b)), self.__not__(self.c)))
+
+    def f123(self):
+        return self.__or__(self.__or__(self.__and__(self.__and__(self.__not__(self.a), self.b), self.c),
+                                       self.__and__(self.__and__(self.__not__(self.a), self.__not__(self.b)), self.c)),
+                           self.__and__(self.__and__(self.a, self.__not__(self.b)), self.__not__(self.c)))
 
 
 while True:
@@ -36,6 +60,12 @@ while True:
     114: q.f114(), 
     115: q.f115(), 
     116: q.f116(), 
-    117: q.f117()}
+    117: q.f117(),
+    118: q.f118(),
+    119: q.f119(),
+    120: q.f120(),
+    121: q.f121(),
+    122: q.f122(),
+    123: q.f123()}
 
     print('', z[int(input())], "\n", sep='\n', end='\n')
