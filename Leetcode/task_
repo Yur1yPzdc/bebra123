@@ -1,0 +1,46 @@
+import math
+class Solution:
+    def decodeAtIndex(self, s: str, k: int) -> str:
+        ans = ''
+        qq = []
+        ans0 = 0
+        for q in s:
+            if q.isdigit():
+                if qq[-1].isdigit():
+                    qq[-1] += q
+                else:
+                    qq.append(q)
+            else:
+                if len(qq) != 0:
+                    if not qq[-1].isdigit():
+                        qq[-1] += q
+                    else:
+                        qq.append(q)
+                else:
+                    qq.append(q)
+        sravn = k
+        while True:
+            for q in qq:
+                if not q.isdigit():
+                    if ans0 + len(q) >= sravn:
+                        return q[sravn-ans0-1]
+                    ans0 += len(q)
+                else:
+                    if ans0 * int(q) >= sravn:
+                        if sravn > int(q):
+                            sravn = round(sravn / int(q))
+                            ans0 = 0
+                            break
+                        else:
+                            z = qq.index(q)
+                            for i in range(z+1):
+                                if not qq[i].isdigit():
+                                    ans += qq[i]
+                                else:
+                                    ans *= int(qq[i])
+                            return ans[sravn-1]
+                    ans0 *= int(q)
+
+
+q = Solution()
+print(q.decodeAtIndex(s = "aw4eguc6cs", k = 41))

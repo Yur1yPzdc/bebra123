@@ -1,0 +1,36 @@
+class Solution:
+    def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:
+        costs = [[[10e9, 0, False]] if _ != src else [0, 0, True] for _ in range(n)]
+        possibilities = set()
+        possibilities.add((10e9, 0, False))
+        set_mark = src
+        for q in flights:            
+            if q[0] == set_mark:
+                costs[q[1]][0] = q[2]
+                costs[q[1]][1] += 1
+        possibilities.add(tuple(costs[dst]))
+        while True:
+            dists = {}
+            for w in range(n):
+                if costs[w][-1][2] is False:
+                    dists[costs[w][-1][0]] = w
+            set_mark = dists[min([costs[i][-1][0] for i in range(n) if costs[i][-1][2] is False])]
+            costs[set_mark][-1][2] = True
+            for q in flights:
+                if q[0] == set_mark:
+                    if costs[q[1]][-1][1] <= k:
+                        if costs[q[1]][-1][0] > q[2] + costs[set_mark][-1][0]:
+                            costs[q[1]][-1][0] = q[2] + costs[set_mark][-1][0]
+                            costs[q[1]][-1][1] = costs[set_mark][-1][1] + 1
+            if costs[dst][-1][1] > k+1:
+                
+            possibilities.add(tuple(costs[dst][-1]))
+        verdict = min([a[0] for a in possibilities if a[1] <= k+1])
+        if verdict == 10e9:
+            return -1
+        return verdict
+
+
+
+sol = Solution()
+print(sol.findCheapestPrice(int(input('num of cities: ')), list(map(lambda x: [int(q) for q in x.strip('[]').split(',')], input('rates: ')[1:-1].split('],['))), int(input('start: ')), int(input('destination: ')), int(input('max flights: '))))

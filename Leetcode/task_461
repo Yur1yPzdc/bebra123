@@ -1,0 +1,24 @@
+class Solution:
+    def to_2(self, q):
+        ans = ''
+        while q > 1:
+            ans += str(q % 2)
+            q //= 2
+        ans += str(q)
+        return ans[::-1]
+
+    def hammingDistance(self, x: int, y: int) -> int:
+        ans = 0
+        a, s = self.to_2(x), self.to_2(y)
+        if len(a) <= len(s):
+            a = '0' * (len(s) - len(a)) + a
+        else:
+            s = '0' * (len(a) - len(s)) + s
+        for i in range(len(a)):
+            if a[i] != s[i]:
+                ans += 1
+        return ans
+
+
+s = Solution()
+print(s.hammingDistance(x=1, y=4))
